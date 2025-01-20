@@ -4,12 +4,12 @@ const resetEl = document.getElementById("reset");
 const timerEl = document.getElementById("timer");
 
 let interval;
-let timeLeft = 1500;
+let timeLeft = 5;
 
 const updateTimer = function () {
   let minutes = Math.floor(timeLeft / 60);
   let seconds = timeLeft % 60;
-  let formattedTime = `${minutes.toString().padStart(2, "0")} : ${seconds
+  let formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
     .toString()
     .padStart(2, "0")}`;
 
@@ -17,6 +17,7 @@ const updateTimer = function () {
 };
 
 const startTimer = function () {
+  startEl.disabled = true;
   interval = setInterval(function () {
     timeLeft--;
     updateTimer();
@@ -24,16 +25,19 @@ const startTimer = function () {
       clearInterval(interval);
       alert("Time's up");
       timeLeft = 1500;
+      startEl.disabled = false;
     }
   }, 1000);
 };
 
 const stopTimer = function () {
   clearInterval(interval);
+  startEl.disabled = false;
 };
 const resetTimer = function () {
   clearInterval(interval);
   timeLeft = 1500;
+  startEl.disabled = false;
   updateTimer();
 };
 
